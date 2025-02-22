@@ -3,25 +3,27 @@ import { usersReducer } from '../store/slices/usersSlice.ts';
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE } from 'redux-persist/es/constants';
+import { picturesReducer } from '../store/slices/picturesSlice.ts';
 
 const userPersistConfig = {
-    key: 'store:users',
-    storage,
-    whitelist: ['user']
+  key: 'store:users',
+  storage,
+  whitelist: ['user']
 };
 
 const rootReducer = combineReducers({
-    users: persistReducer(userPersistConfig, usersReducer),
+  users: persistReducer(userPersistConfig, usersReducer),
+  pictures: picturesReducer,
 });
 
 export const store = configureStore({
-    reducer: rootReducer,
-    middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware({
-            serializableCheck: {
-                ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
-            }
-        })
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
+      }
+    })
 });
 
 export type RootState = ReturnType<typeof store.getState>;
