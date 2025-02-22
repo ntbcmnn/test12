@@ -60,3 +60,7 @@
   width: 50px;
   border: 2px solid white;
 }
+
+.picture-card {
+  background: #63a1dc !important;
+}
