@@ -79,15 +79,7 @@ const UserSchema = new Schema<
         }
     },
     googleID: String,
-    avatar: {
-        type: String,
-        validate: {
-            validator: async function (this: HydratedDocument<UserFields>, value: string): Promise<boolean> {
-                return value.trim().length > 0;
-            },
-            message: "Avatar required.",
-        }
-    },
+    avatar: String,
 });
 
 UserSchema.pre('save', async function (next) {
