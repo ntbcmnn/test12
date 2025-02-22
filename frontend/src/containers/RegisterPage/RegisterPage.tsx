@@ -62,8 +62,8 @@ const RegisterPage = () => {
   return (
     <div className="container mt-5" style={{maxWidth: '400px'}}>
       <div className="text-center mb-4">
-        <i className="bi bi-lock fs-2 "></i>
-        <h2 className="mt-2">Sign Up</h2>
+        <i className="bi bi-unlock fs-2" style={{color: '#4389cc'}}></i>
+        <h2 className="mt-2" style={{color: '#4389cc'}}>Sign Up</h2>
       </div>
       <form onSubmit={onSubmit}>
         <div className="mb-3 d-flex flex-column align-items-center">
@@ -132,11 +132,14 @@ const RegisterPage = () => {
             label="Avatar"
             onGetFile={onFileChange}
             file={form.avatar}
-            className="form-control"
+            className={`form-control ${getFieldError('avatar') ? 'is-invalid' : ''}`}
           />
+          {getFieldError('avatar') && (
+            <div className="invalid-feedback">{getFieldError('avatar')}</div>
+          )}
         </div>
 
-        <button type="submit" className="btn btn-dark w-100">
+        <button type="submit" className="btn btn-blue w-100">
           Sign Up
         </button>
 

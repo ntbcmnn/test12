@@ -8,7 +8,7 @@ const Toolbar = () => {
     const user = useAppSelector(selectUser);
 
     return (
-        <nav className="navbar navbar-expand-lg bg-dark">
+        <nav className="navbar navbar-expand-lg py-3">
             <div className="container d-flex align-items-center justify-content-between">
                 <NavLink className="navbar-brand text-white d-inline-flex align-items-center gap-2" to="/">
 

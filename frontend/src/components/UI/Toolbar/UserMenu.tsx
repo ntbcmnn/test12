@@ -25,37 +25,36 @@ const UserMenu: React.FC<Props> = ({user}) => {
         navigate('/');
     };
 
-    return (
-        <div className="d-flex align-items-center gap-4">
-            <div
-                className="dropdown"
-                onMouseLeave={toggleMenu}
-            >
-                <button
-                    className="btn btn-outline-light border-0 dropdown-toggle d-inline-flex gap-2 align-items-center"
-                    type="button"
-                    onClick={toggleMenu}
-                >
-                    {
-                        user.avatar ?
-                            <img
-                                className="rounded-circle user-avatar"
-                                src={user.avatar.startsWith('images/') || user.avatar.startsWith('fixtures') ? `${api_URL}/${user.avatar}` : user.avatar}
-                                alt={user.displayName}
-                            />
-                            :
-                            <i className="bi bi-person-circle"></i>
-                    }
+  return (
+    <div className="d-flex align-items-center gap-4">
+      <div
+        className="dropdown"
+        onMouseLeave={toggleMenu}
+      >
+        <button
+          className="btn btn-outline-light border-0 dropdown-toggle d-inline-flex gap-2 align-items-center"
+          type="button"
+          onClick={toggleMenu}
+        >
+          {
+            user.avatar ?
+              <img
+                className="rounded-circle user-avatar"
+                src={user.avatar.startsWith('images/') || user.avatar.startsWith('fixtures') ? `${api_URL}/${user.avatar}` : user.avatar}
+                alt={user.displayName}
+              />
+              :
+              <i className="bi bi-person-circle"></i>
+          }
+          <span className="user-display-name">{user.displayName}</span>
+        </button>
 
-                    {user.displayName}
-                </button>
-
-                <div className={`dropdown-menu ${isOpen ? 'show' : ''}`}>
-                    <button className="dropdown-item btn btn-dark" onClick={handleLogOut}>Log out</button>
-                </div>
-            </div>
+        <div className={`dropdown-menu ${isOpen ? 'show' : ''}`}>
+          <button className="dropdown-item btn btn-dark" onClick={handleLogOut}>Log out</button>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default UserMenu;
