@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import { RegisterMutation } from '../../types';
 import { useAppDispatch, useAppSelector } from '../../app/hooks.ts';
-import { selectRegisterError } from '../../store/slices/usersSlice.ts';
+import { selectRegisterError, selectRegisterLoading } from '../../store/slices/usersSlice.ts';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { googleLogin, register } from '../../store/thunks/usersThunk.ts';
 import { GoogleLogin } from '@react-oauth/google';
 import FileInput from '../../components/UI/FileInput/FileInput.tsx';
+import ButtonLoading from '../../components/UI/ButtonLoading/ButtonLoading.tsx';
 
 const RegisterPage = () => {
   const dispatch = useAppDispatch();
   const registerError = useAppSelector(selectRegisterError);
   const navigate = useNavigate();
+  const isLoading = useAppSelector(selectRegisterLoading);
   const [form, setForm] = useState<RegisterMutation>({
     email: '',
     password: '',
@@ -81,7 +83,7 @@ const RegisterPage = () => {
         </div>
 
         <div className="mb-3">
-          <label htmlFor="email" className="form-label">Email</label>
+          <label htmlFor="email" className="form-label" style={{color: '#4389cc'}}>Email</label>
           <input
             type="text"
             id="email"
@@ -96,7 +98,8 @@ const RegisterPage = () => {
         </div>
 
         <div className="mb-3">
-          <label htmlFor="displayName" className="form-label">The name you'll see in your profile</label>
+          <label htmlFor="displayName" className="form-label" style={{color: '#4389cc'}}>The name you'll see in your
+            profile</label>
           <input
             type="text"
             id="displayName"
@@ -111,7 +114,7 @@ const RegisterPage = () => {
         </div>
 
         <div className="mb-3">
-          <label htmlFor="password" className="form-label">Password</label>
+          <label htmlFor="password" className="form-label" style={{color: '#4389cc'}}>Password</label>
           <input
             type="password"
             id="password"
@@ -139,9 +142,13 @@ const RegisterPage = () => {
           )}
         </div>
 
-        <button type="submit" className="btn btn-blue w-100">
-          Sign Up
-        </button>
+        <div className="d-flex gap-3 justify-content-center mb-3">
+          <ButtonLoading
+            isLoading={isLoading}
+            isDisabled={isLoading}
+            text="Sign Up"
+          />
+        </div>
 
         <div className="text-center mt-3">
           <NavLink to="/login" className="text-decoration-none">Already have an account? Sign in</NavLink>

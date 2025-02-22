@@ -1,14 +1,16 @@
 import React, {useState} from 'react';
 import {LoginMutation} from '../../types';
 import {useAppDispatch, useAppSelector} from '../../app/hooks.ts';
-import {selectLoginError} from '../../store/slices/usersSlice.ts';
+import { selectLoginError, selectLoginLoading } from '../../store/slices/usersSlice.ts';
 import {NavLink, useNavigate} from 'react-router-dom';
 import {googleLogin, login} from '../../store/thunks/usersThunk.ts';
 import {GoogleLogin} from '@react-oauth/google';
+import ButtonLoading from '../../components/UI/ButtonLoading/ButtonLoading.tsx';
 
 const LoginPage = () => {
     const dispatch = useAppDispatch();
     const loginError = useAppSelector(selectLoginError);
+    const isLoading = useAppSelector(selectLoginLoading);
     const navigate = useNavigate();
     const [form, setForm] = useState<LoginMutation>({
         email: '',
@@ -60,7 +62,7 @@ const LoginPage = () => {
 
             <form onSubmit={onSubmit}>
                 <div className="mb-3">
-                    <label htmlFor="email" className="form-label">Email</label>
+                    <label htmlFor="email" className="form-label" style={{color: '#4389cc'}}>Email</label>
                     <input
                         type="text"
                         id="email"
@@ -72,7 +74,7 @@ const LoginPage = () => {
                 </div>
 
                 <div className="mb-3">
-                    <label htmlFor="password" className="form-label">Password</label>
+                    <label htmlFor="password" className="form-label" style={{color: '#4389cc'}}>Password</label>
                     <input
                         type="password"
                         id="password"
@@ -83,9 +85,13 @@ const LoginPage = () => {
                     />
                 </div>
 
-                <button type="submit" className="btn btn-blue w-100">
-                    Sign In
-                </button>
+              <div className="d-flex gap-3 justify-content-center mb-3">
+                <ButtonLoading
+                  isLoading={isLoading}
+                  isDisabled={isLoading}
+                  text="Sign In"
+                />
+              </div>
 
                 <div className="text-center mt-3">
                     <NavLink to="/register" className="text-decoration-none">Don't have an account yet? Sign
