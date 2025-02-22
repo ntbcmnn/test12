@@ -7,6 +7,8 @@ import { googleLogin, register } from '../../store/thunks/usersThunk.ts';
 import { GoogleLogin } from '@react-oauth/google';
 import FileInput from '../../components/UI/FileInput/FileInput.tsx';
 import ButtonLoading from '../../components/UI/ButtonLoading/ButtonLoading.tsx';
+import { getPictures } from '../../store/thunks/picturesThunk.ts';
+import { toast } from 'react-toastify';
 
 const RegisterPage = () => {
   const dispatch = useAppDispatch();
@@ -30,6 +32,8 @@ const RegisterPage = () => {
     try {
       await dispatch(register(form)).unwrap();
       navigate('/');
+      toast.success('Successfully registered!');
+      await dispatch(getPictures());
     } catch (e) {
       console.log(e);
     }
@@ -46,6 +50,7 @@ const RegisterPage = () => {
   const googleLoginHandler = async (credential: string) => {
     await dispatch(googleLogin(credential)).unwrap();
     navigate('/');
+    toast.success('Logged in successfully!');
   };
 
   const onFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void = (

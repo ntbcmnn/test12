@@ -5,25 +5,29 @@ import { unsetUser } from '../../../store/slices/usersSlice';
 import { logout } from '../../../store/thunks/usersThunk';
 import { api_URL } from '../../../globalConstants.ts';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { getPictures } from '../../../store/thunks/picturesThunk.ts';
+import { toast } from 'react-toastify';
 
 interface Props {
-    user: IUser;
+  user: IUser;
 }
 
 const UserMenu: React.FC<Props> = ({user}) => {
-    const [isOpen, setIsOpen] = useState(false);
-    const dispatch = useAppDispatch();
-    const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
-    const toggleMenu = () => {
-        setIsOpen(!isOpen);
-    };
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
 
-    const handleLogOut = () => {
-        dispatch(logout());
-        dispatch(unsetUser());
-        navigate('/');
-    };
+  const handleLogOut = () => {
+    dispatch(logout());
+    dispatch(unsetUser());
+    navigate('/');
+    dispatch(getPictures());
+    toast.success('Logged out successfully');
+  };
 
   return (
     <div className="d-flex flex-wrap align-items-center gap-4">
