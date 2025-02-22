@@ -4,7 +4,7 @@ import { useAppDispatch } from '../../../app/hooks';
 import { unsetUser } from '../../../store/slices/usersSlice';
 import { logout } from '../../../store/thunks/usersThunk';
 import { api_URL } from '../../../globalConstants.ts';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 interface Props {
     user: IUser;
@@ -26,7 +26,19 @@ const UserMenu: React.FC<Props> = ({user}) => {
     };
 
   return (
-    <div className="d-flex align-items-center gap-4">
+    <div className="d-flex flex-wrap align-items-center gap-4">
+      <NavLink
+        to={`/pictures?user=${user._id}`}
+        className="nav-link text-white fw-bold user-menu-link border-end pe-4"
+      >
+        My pictures
+      </NavLink>
+      <NavLink
+        to="/pictures/new"
+        className="nav-link text-white fw-bold user-menu-link"
+      >
+        Post picture!
+      </NavLink>
       <div
         className="dropdown"
         onMouseLeave={toggleMenu}
